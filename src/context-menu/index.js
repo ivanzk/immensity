@@ -1,3 +1,9 @@
-import handleContextMenu from './handleContextMenu';
+export default (e, callbackFn) => {
+  e.preventDefault();
 
-export default handleContextMenu;
+  if (typeof callbackFn == 'function') {
+    return callbackFn();
+  }
+
+  return false;
+};

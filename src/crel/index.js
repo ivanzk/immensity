@@ -1,3 +1,9 @@
-import crel from './crel';
+export default (tag = 'div', props = {}) => {
+  const el = document.createElement(tag);
 
-export default crel;
+  Object.keys(props).forEach(propKey => {
+    el[propKey] = props[propKey];
+  });
+
+  return el;
+};
