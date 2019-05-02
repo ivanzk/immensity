@@ -6,6 +6,7 @@ import getVideoshot from './get-videoshot/';
 import handleContextMenu from './context-menu';
 import handleKeyboardEvent from './keyboard-event';
 import handleMouseEvent from './mouse-event';
+import openInIframe from './open-in-iframe';
 import photoshowSimple from './photoshow-simple';
 import VideoController from './video-controller/';
 
@@ -19,6 +20,7 @@ export {
   handleContextMenu,
   handleKeyboardEvent,
   handleMouseEvent,
+  openInIframe,
   photoshowSimple,
   removeAttributes,
   VideoController
