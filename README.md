@@ -23,6 +23,7 @@ import {
   cleanDocument,
   convertSecondsToTimeUnits,
   craddel,
+  createVideoController,
   crel,
   formatTimeForVideo,
   getVideoshot,
@@ -31,14 +32,13 @@ import {
   handleMouseEvent,
   openInIframe,
   photoshowSimple,
-  removeAttributes,
-  VideoController
+  removeAttributes
 } from 'immensity';
 ```
 
-## Example - getVideoshot
+### Example - getVideoshot
 
-Capture video screenshot of any HTML5 video at current time
+Capture video screenshot of HTML5 video at current time
 
 ```js
 const video = document.querySelector('video');
