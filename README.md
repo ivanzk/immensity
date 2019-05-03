@@ -7,18 +7,18 @@ JavaScript library for DOM manipulation
 ## Install
 
 ```
-$ npm install immensity
+npm install immensity
 ```
 
 ## Usage
 
-```
+```js
 import * as iy from 'immensity';
 ```
 
 Or
 
-```
+```js
 import {
   cleanDocument,
   convertSecondsToTimeUnits,
@@ -40,7 +40,7 @@ import {
 
 Capture video screenshot of any HTML5 video at current time
 
-```
+```js
 const video = document.querySelector('video');
 
 // optional object, defaults to:
@@ -51,7 +51,7 @@ const options = {
   quality: 0.95,
   timestamp: ` ${Date.now()}`,
   type: 'image/jpeg'
-}
+};
 
 getVideoshot(video, options);
 ```
