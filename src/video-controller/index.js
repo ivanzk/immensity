@@ -1,10 +1,10 @@
 import addKeyboardEventListener from './addKeyboardEventListener';
 import addMouseEventListener from './addMouseEventListener';
 import cleanDocument from '../cleaner/cleanDocument';
+import createVideoController from './createVideoController';
 import createVideoView from './createVideoView';
-import Modal from './Modal';
+import createModal from './createModal';
 import removeAttributes from '../cleaner/removeAttributes';
-import VideoController from './VideoController';
 
 export default (video, opt = {}) => {
   const defaultOpt = {
@@ -31,13 +31,13 @@ export default (video, opt = {}) => {
     opt.videoIndex = [...video.parentElement.children].findIndex(
       el => el.nodeName === 'VIDEO'
     );
-    opt.modal = new Modal(video, opt);
+    opt.modal = createModal(video, opt);
     opt.clean = false;
   }
 
   opt.clean && cleanDocument();
 
-  const videoController = new VideoController(video, opt);
+  const videoController = createVideoController(video, opt);
   opt.view && createVideoView(videoController, opt);
   opt.keyboardActionMap && addKeyboardEventListener(videoController, opt);
   opt.mouseActionMap && addMouseEventListener(videoController, opt);
