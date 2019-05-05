@@ -52,8 +52,14 @@ export default (videoController, opt) => {
     defaultMouseActionMap[closeModalMouseKey] = modal.closeModal;
   }
 
-  const mouseActionMap =
-    opt.mouseActionMap === true ? defaultMouseActionMap : opt.mouseActionMap;
+  let mouseActionMap;
+  if (opt.mouseActionMap === true) {
+    mouseActionMap = defaultMouseActionMap;
+  } else {
+    mouseActionMap = opt.mergeMouseActionMapWithDefault
+      ? { ...defaultMouseActionMap, ...opt.mouseActionMap }
+      : opt.mouseActionMap;
+  }
 
   if (opt.view) {
     const overlay = document.querySelector('#videoOverlay');

@@ -11,6 +11,7 @@ export default (video, opt = {}) => {
     clean: true,
     closeModalMouseKey: null,
     keyboardActionMap: true,
+    mergeMouseActionMapWithDefault: false,
     mouseActionMap: true,
     playbackRateChange: 0.1,
     startInFullScreen: true,
