@@ -25,13 +25,17 @@ export default (videoController, opt) => {
     defaultKeyboardActionMap['alt+q'] = modal.closeModal;
   }
 
-  const keyboardActionMap =
-    opt.keyboardActionMap === true
-      ? defaultKeyboardActionMap
+  let keyboardActionMap;
+  if (opt.keyboardActionMap === true) {
+    keyboardActionMap = defaultKeyboardActionMap;
+  } else {
+    keyboardActionMap = opt.mergeKeyboardActionMapWithDefault
+      ? { ...defaultKeyboardActionMap, ...opt.keyboardActionMap }
       : opt.keyboardActionMap;
+  }
 
   document.addEventListener(
     'keydown',
-    handleKeyboardEvent(keyboardActionMap, ['BODY', 'VIDEO'])
+    handleKeyboardEvent(keyboardActionMap, { targets: ['BODY', 'VIDEO'] })
   );
 };
