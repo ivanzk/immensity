@@ -1,19 +1,26 @@
 import removeAttributes from './removeAttributes';
 
-export default (htmlClean = true, headClean = true, bodyClean = true) => {
+export default (opt = {}) => {
+  const defaultOpt = {
+    htmlClean: true,
+    headClean: true,
+    bodyClean: true
+  };
+  opt = { ...defaultOpt, ...opt };
+
   const { head, body } = document;
   const html = document.documentElement;
 
-  if (htmlClean) removeAttributes(html);
+  if (opt.htmlClean) removeAttributes(html);
 
-  if (headClean) {
+  if (opt.headClean) {
     const title = document.title;
     removeAttributes(head);
     head.innerHTML = '';
     document.title = title;
   }
 
-  if (bodyClean) {
+  if (opt.bodyClean) {
     removeAttributes(body);
     body.innerHTML = '';
   }
