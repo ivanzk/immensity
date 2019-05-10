@@ -1,5 +1,5 @@
 import { cleanDocument, removeAttributes } from './cleaner';
-import { controlCursorVisibility } from './controlCursorVisibility';
+import { controlCursorVisibility } from './cursor';
 import { convertSecondsToTimeUnits, formatTimeForVideo } from './format-time';
 import craddel from './craddel';
 import createVideoController from './video-controller/';
