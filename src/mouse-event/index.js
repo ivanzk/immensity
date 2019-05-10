@@ -3,7 +3,7 @@ let rightButtonMod = false;
 
 export default (actionMap = {}, opt = {}) => e => {
   const defaultOpt = {
-    isLogging: true,
+    isLogging: false,
     preventDefault: true,
     stopPropagation: true,
     stopImmediatePropagation: true
