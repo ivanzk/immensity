@@ -1,6 +1,8 @@
 import addStyles from './addStyles';
 import craddel from '../craddel';
 import handleVideoEvent from './handleVideoEvent';
+import throttle from '../throttle';
+import { controlCursorVisibility } from '../cursor';
 
 export default (videoController, opt) => {
   const { video } = videoController;
@@ -69,6 +71,11 @@ export default (videoController, opt) => {
   seekBar.addEventListener('mouseout', onBarMouseOut);
   seekBar.addEventListener('mousemove', onSeekBarMouseMove);
 
+  videoContainer.addEventListener(
+    'mousemove',
+    throttle(100, onVideoContainerMouseMove)
+  );
+
   function onVolumeBarClick(e) {
     const barValue = e.offsetX / e.target.offsetWidth;
     videoController.muteOff();
@@ -127,6 +134,13 @@ export default (videoController, opt) => {
     const barValue = Math.ceil((e.offsetX / e.target.offsetWidth) * 100) / 100;
     videoController.muteOff();
     video.volume = barValue;
+  }
+
+  function onVideoContainerMouseMove(e) {
+    opt.autoHideCursor &&
+      controlCursorVisibility(videoContainer, {
+        cursorVisibilityDuraton: opt.cursorVisibilityDuraton
+      });
   }
 
   handleVideoEvent(videoController, {

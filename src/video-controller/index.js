@@ -8,8 +8,10 @@ import removeAttributes from '../cleaner/removeAttributes';
 
 export default (video, opt = {}) => {
   const defaultOpt = {
+    autoHideCursor: true,
     clean: true,
     closeModalMouseKey: null,
+    cursorVisibilityDuration: 2500,
     keyboardActionMap: true,
     mergeMouseActionMapWithDefault: false,
     mouseActionMap: true,
