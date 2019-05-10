@@ -1,4 +1,5 @@
 import { cleanDocument, removeAttributes } from './cleaner';
+import { controlCursorVisibility } from './controlCursorVisibility';
 import { convertSecondsToTimeUnits, formatTimeForVideo } from './format-time';
 import craddel from './craddel';
 import createVideoController from './video-controller/';
@@ -8,10 +9,12 @@ import handleContextMenu from './context-menu';
 import handleKeyboardEvent from './keyboard-event';
 import handleMouseEvent from './mouse-event';
 import openInIframe from './open-in-iframe';
+import throttle from './throttle';
 import photoshowSimple from './photoshow-simple';
 
 export {
   cleanDocument,
+  controlCursorVisibility,
   convertSecondsToTimeUnits,
   craddel,
   createVideoController,
@@ -23,5 +26,6 @@ export {
   handleMouseEvent,
   openInIframe,
   photoshowSimple,
-  removeAttributes
+  removeAttributes,
+  throttle
 };
