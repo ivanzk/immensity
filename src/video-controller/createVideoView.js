@@ -86,8 +86,8 @@ export default (videoController, opt) => {
     e.preventDefault();
     videoController.muteOff();
     e.deltaY < 0
-      ? videoController.volumeUp(0.02)
-      : videoController.volumeDown(0.02);
+      ? videoController.volumeUp(0.01)
+      : videoController.volumeDown(0.01);
   }
 
   function onSeekBarClick(e) {
