@@ -15,15 +15,16 @@ export default (video, opt = {}) => {
     controlsVisibilityDuration: 2000,
     cursorVisibilityDuration: 2000,
     keyboardActionMap: true,
+    mergeKeyboardActionMapWithDefault: false,
     mergeMouseActionMapWithDefault: false,
     mouseActionMap: true,
     playbackRateChange: 0.1,
     startInFullScreen: true,
     startWithControlBar: true,
-    timeChange: 2.5,
+    timeChange: 1,
     videoshotOpt: {},
     view: true,
-    volumeChange: 0.025
+    volumeChange: 0.01
   };
   opt = { ...defaultOpt, ...opt };
 
