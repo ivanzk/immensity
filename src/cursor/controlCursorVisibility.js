@@ -3,7 +3,7 @@ let timeoutId;
 export default (element, opt = {}) => {
   const defaultOpt = {
     cursor: 'default',
-    cursorVisibilityDuration: 2500
+    cursorVisibilityDuration: 3000
   };
   opt = { ...defaultOpt, ...opt };
 
