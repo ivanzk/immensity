@@ -3,6 +3,7 @@ import craddel from '../craddel';
 import handleVideoEvent from './handleVideoEvent';
 import throttle from '../throttle';
 import { controlCursorVisibility } from '../cursor';
+import controlControlsContainerVisibility from './controlControlsContainerVisibility';
 
 export default (videoController, opt) => {
   const { video } = videoController;
@@ -137,9 +138,14 @@ export default (videoController, opt) => {
   }
 
   function onVideoContainerMouseMove(e) {
+    const { controlsVisibilityDuration, cursorVisibilityDuration } = opt;
     opt.autoHideCursor &&
       controlCursorVisibility(videoContainer, {
-        cursorVisibilityDuraton: opt.cursorVisibilityDuraton
+        cursorVisibilityDuration
+      });
+    opt.autoHideControls &&
+      controlControlsContainerVisibility(e, controlsContainer, {
+        controlsVisibilityDuration
       });
   }
 
