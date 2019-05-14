@@ -78,6 +78,6 @@ function takeAction(event, action, opt) {
     opt.preventDefault && event.preventDefault();
     opt.stopPropagation && event.stopPropagation();
     opt.stopImmediatePropagation && event.stopImmediatePropagation();
-    action(event);
+    action();
   }
 }
