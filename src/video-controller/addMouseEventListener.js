@@ -13,9 +13,9 @@ export default (videoController, opt) => {
     mouseup2: videoController.toggleControls,
 
     // Left
-    'wheeldown+g0208': () => videoController.decreasePlaybackRate(0.1),
-    'wheelup+g0208': () => videoController.increasePlaybackRate(0.1),
-    'mousedown0+g0228': () => videoController.normalizePlaybackRate(),
+    'wheeldown+g0208': videoController.decreasePlaybackRate,
+    'wheelup+g0208': videoController.increasePlaybackRate,
+    'mousedown0+g0228': videoController.normalizePlaybackRate,
     'mousedown0+g0201': () => getVideoshot(video, opt.videoshotOpt),
 
     // Center
