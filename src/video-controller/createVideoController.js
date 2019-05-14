@@ -30,13 +30,21 @@ export default (video, opt = {}) => {
 
   const muteOn = () => (video.muted = true);
 
-  const increasePlaybackRate = (playbackRateChange = opt.playbackRateChange) =>
-    (video.playbackRate += playbackRateChange);
+  const increasePlaybackRate = (
+    playbackRateChange = opt.playbackRateChange
+  ) => {
+    const playbackRate = video.playbackRate + playbackRateChange;
+    video.playbackRate = playbackRate <= 5 ? playbackRate : 5;
+  };
 
   const normalizePlaybackRate = () => (video.playbackRate = 1);
 
-  const decreasePlaybackRate = (playbackRateChange = opt.playbackRateChange) =>
-    (video.playbackRate -= playbackRateChange);
+  const decreasePlaybackRate = (
+    playbackRateChange = opt.playbackRateChange
+  ) => {
+    const playbackRate = video.playbackRate - playbackRateChange;
+    video.playbackRate = playbackRate >= 0.1 ? playbackRate : 0.1;
+  };
 
   const seekBackward = (timeChange = defaultTimeChange, opt = {}) => {
     const defaultOpt = {
