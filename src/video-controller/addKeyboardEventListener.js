@@ -13,9 +13,9 @@ export default (videoController, opt) => {
     a: () => videoController.seekBackward(5),
     arrowup: () => videoController.volumeUp(0.05),
     arrowdown: () => videoController.volumeDown(0.05),
-    e: () => videoController.increasePlaybackRate(0.1),
+    e: videoController.increasePlaybackRate,
     w: videoController.normalizePlaybackRate,
-    q: () => videoController.decreasePlaybackRate(0.1),
+    q: videoController.decreasePlaybackRate,
     c: videoController.toggleControls,
     m: videoController.toggleMute,
     v: () => getVideoshot(videoController.video)
