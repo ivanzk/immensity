@@ -86,9 +86,7 @@ export default (videoController, opt) => {
   function onVolumeBarWheel(e) {
     e.preventDefault();
     videoController.muteOff();
-    e.deltaY < 0
-      ? videoController.volumeUp(0.01)
-      : videoController.volumeDown(0.01);
+    e.deltaY < 0 ? videoController.volumeUp() : videoController.volumeDown();
   }
 
   function onSeekBarClick(e) {
@@ -102,8 +100,8 @@ export default (videoController, opt) => {
     e.stopPropagation();
     e.preventDefault();
     e.deltaY < 0
-      ? videoController.seekForward(1)
-      : videoController.seekBackward(1);
+      ? videoController.seekForward()
+      : videoController.seekBackward();
   }
 
   let barMouseDown = false;
