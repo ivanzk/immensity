@@ -69,6 +69,7 @@ export default function() {
         bottom: 0px;
         height: 50px;
         width: 100%;
+        cursor: default;
       }
 
       #iyVideoControllerRoot .hideControls {
