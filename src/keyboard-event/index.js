@@ -1,6 +1,7 @@
 export default (actionMap = {}, opt = {}) => event => {
   const defaultOpt = {
     eventPropertyToGetKeyValue: 'key',
+    excludeTargets: false,
     isLogging: false,
     preventDefault: true,
     stopPropagation: true,
@@ -11,7 +12,7 @@ export default (actionMap = {}, opt = {}) => event => {
 
   const { activeElement } = document;
   if (opt.targets.length) {
-    const isProceeding = opt.targets.some(target => {
+    const targetFound = opt.targets.some(target => {
       if (target instanceof HTMLElement) {
         return target.isEqualNode(activeElement);
       }
@@ -24,7 +25,11 @@ export default (actionMap = {}, opt = {}) => event => {
       return activeElement.nodeName === target;
     });
 
-    if (!isProceeding) return;
+    if (
+      (!targetFound && !opt.excludeTargets) ||
+      (targetFound && opt.excludeTargets)
+    )
+      return;
   }
 
   const key = getKeyValue(event, opt.eventPropertyToGetKeyValue);
