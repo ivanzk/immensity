@@ -51,6 +51,10 @@ export default function() {
         width: 100vw;
         height: 100vh;
       }
+      #iyVideoControllerRoot #videoOverlay:focus {
+        border: none;
+        outline: none;
+      }
 
       #iyVideoControllerRoot video {
         background-color: #000 !important;
