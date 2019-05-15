@@ -1,6 +1,7 @@
 import { cleanDocument, removeAttributes } from './cleaner';
 import { controlCursorVisibility } from './cursor';
 import { convertSecondsToTimeUnits, formatTimeForVideo } from './format-time';
+import { saveAsJSON } from './save';
 import craddel from './craddel';
 import createVideoController from './video-controller/';
 import crel from './crel';
@@ -27,5 +28,6 @@ export {
   openInIframe,
   photoshowSimple,
   removeAttributes,
+  saveAsJSON,
   throttle
 };
