@@ -86,23 +86,19 @@ export default (video, opt = {}) => {
 
   const toggleControls = () => {
     if (opt.view) {
-      document
-        .querySelector('.controlsContainer')
-        .classList.toggle('hideControls');
+      const controls = document.querySelector('.controlsContainer');
+
+      if (controls.classList.contains('showControls')) {
+        controls.classList.remove('showControls');
+        controls.classList.add('hideControls');
+      } else {
+        controls.classList.add('showControls');
+        controls.classList.remove('hideControls');
+      }
     } else {
       video.hasAttribute('controls')
         ? video.removeAttribute('controls')
         : video.setAttribute('controls', true);
-    }
-  };
-
-  const showControls = () => {
-    if (opt.view) {
-      document
-        .querySelector('.controlsContainer')
-        .classList.remove('hideControls');
-    } else {
-      video.setAttribute('controls', true);
     }
   };
 
@@ -133,7 +129,6 @@ export default (video, opt = {}) => {
     decreasePlaybackRate,
     seekBackward,
     seekForward,
-    showControls,
     toggleControls,
     toggleMute,
     togglePlay,
