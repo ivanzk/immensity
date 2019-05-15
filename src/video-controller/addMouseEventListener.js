@@ -8,7 +8,6 @@ export default (videoController, opt) => {
 
   const defaultMouseActionMap = {
     // Full
-    click: () => {},
     mousedown1: () => getVideoshot(video, opt.videoshotOpt),
     mouseup2: videoController.toggleControls,
 
@@ -63,7 +62,10 @@ export default (videoController, opt) => {
 
   if (opt.view) {
     const overlay = document.querySelector('#videoOverlay');
-    overlay.addEventListener('click', handleMouseEvent(mouseActionMap));
+    overlay.addEventListener(
+      'click',
+      handleMouseEvent({ click: () => overlay.focus() })
+    );
     overlay.addEventListener('mousedown', handleMouseEvent(mouseActionMap));
     overlay.addEventListener('mouseup', handleMouseEvent(mouseActionMap));
     overlay.addEventListener('wheel', handleMouseEvent(mouseActionMap));
