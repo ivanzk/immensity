@@ -8,12 +8,13 @@ import controlControlsContainerVisibility from './controlControlsContainerVisibi
 export default (videoController, opt) => {
   const { video } = videoController;
   const { modal, startInFullScreen, startWithControlBar } = opt;
+  const root = opt.root || document.body;
 
   addStyles();
 
   const videoContainer = craddel(
     {
-      parent: modal ? modal.modal : null,
+      parent: modal ? modal.modal : root,
       child: video,
       type: 'prepend'
     },
