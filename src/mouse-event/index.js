@@ -5,8 +5,8 @@ export default (actionMap = {}, opt = {}) => e => {
   const defaultOpt = {
     isLogging: false,
     preventDefault: true,
-    stopPropagation: true,
-    stopImmediatePropagation: true
+    stopPropagation: false,
+    stopImmediatePropagation: false
   };
   opt = { ...defaultOpt, ...opt };
 

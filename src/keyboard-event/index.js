@@ -4,8 +4,8 @@ export default (actionMap = {}, opt = {}) => event => {
     excludeTargets: false,
     isLogging: false,
     preventDefault: true,
-    stopPropagation: true,
-    stopImmediatePropagation: true,
+    stopPropagation: false,
+    stopImmediatePropagation: false,
     targets: []
   };
   opt = { ...defaultOpt, ...opt };

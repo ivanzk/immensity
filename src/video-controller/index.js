@@ -10,22 +10,22 @@ export default (video, opt = {}) => {
   const defaultOpt = {
     autoHideControlBar: true,
     autoHideCursor: true,
-    clean: true,
-    closeModalMouseKey: null,
+    clean: false,
+    closeModalMouseKey: 'mousedown1',
     controlBarVisibilityDuration: 2000,
     cursorVisibilityDuration: 2000,
     excludeKeyboardEventTargetElements: true,
     keyboardActionMap: true,
     keyboardEventTargetElements: ['INPUT'],
-    mergeKeyboardActionMapWithDefault: false,
-    mergeMouseActionMapWithDefault: false,
+    mergeKeyboardActionMapWithDefault: true,
+    mergeMouseActionMapWithDefault: true,
     mouseActionMap: true,
     playbackRateChange: 0.1,
     startInFullScreen: true,
     startWithControlBar: false,
     timeChange: 1,
     videoshotOpt: {},
-    view: true,
+    view: 'modal',
     volumeChange: 0.01
   };
   opt = { ...defaultOpt, ...opt };
