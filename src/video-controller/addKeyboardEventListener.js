@@ -34,7 +34,11 @@ export default (videoController, opt) => {
       : opt.keyboardActionMap;
   }
 
-  document.addEventListener(
+  const keyboardListener = opt.view
+    ? document.querySelector('#iyVideoOverlay')
+    : document;
+
+  keyboardListener.addEventListener(
     'keydown',
     handleKeyboardEvent(keyboardActionMap, {
       excludeTargets: opt.excludeKeyboardEventTargetElements,
