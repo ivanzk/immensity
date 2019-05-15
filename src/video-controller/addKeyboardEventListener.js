@@ -36,6 +36,9 @@ export default (videoController, opt) => {
 
   document.addEventListener(
     'keydown',
-    handleKeyboardEvent(keyboardActionMap, { targets: ['BODY', 'VIDEO'] })
+    handleKeyboardEvent(keyboardActionMap, {
+      targets: opt.keyboardEventTargetElements,
+      excludeTargets: opt.excludeKeyboardEventTargetElements
+    })
   );
 };
