@@ -22,7 +22,7 @@ export default (video, opt = {}) => {
     mouseActionMap: true,
     playbackRateChange: 0.1,
     startInFullScreen: true,
-    startWithControlBar: true,
+    startWithControlBar: false,
     timeChange: 1,
     videoshotOpt: {},
     view: true,

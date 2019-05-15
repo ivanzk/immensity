@@ -16,11 +16,10 @@ npm install immensity
 import * as iy from 'immensity';
 ```
 
-Or
-
 ```js
 import {
   cleanDocument,
+  controlCursorVisibility,
   convertSecondsToTimeUnits,
   craddel,
   createVideoController,
@@ -32,7 +31,8 @@ import {
   handleMouseEvent,
   openInIframe,
   photoshowSimple,
-  removeAttributes
+  removeAttributes,
+  throttle
 } from 'immensity';
 ```
 
@@ -41,6 +41,8 @@ import {
 Capture video screenshot of HTML5 video at current time
 
 ```js
+import { getVideoshot } from 'immensity';
+
 const video = document.querySelector('video');
 
 // optional object, defaults to:

@@ -7,13 +7,12 @@ import controlControlBarContainerVisibility from './controlControlBarContainerVi
 
 export default (videoController, opt) => {
   const { video } = videoController;
-  const { modal, startInFullScreen, startWithControlBar } = opt;
 
   addStyles();
 
   const videoContainer = craddel(
     {
-      parent: modal ? modal.modal : document.body,
+      parent: opt.modal ? opt.modal.modal : document.body,
       child: video,
       type: 'prepend'
     },
@@ -21,7 +20,7 @@ export default (videoController, opt) => {
   );
 
   if (video.parentElement.webkitRequestFullscreen) {
-    startInFullScreen && video.parentElement.webkitRequestFullscreen();
+    opt.startInFullScreen && video.parentElement.webkitRequestFullscreen();
   }
 
   const videoOverlay = craddel(
@@ -34,7 +33,8 @@ export default (videoController, opt) => {
     { className: 'controlsContainer' }
   );
 
-  !startWithControlBar && controlsContainer.classList.add('hideControls');
+  opt.startWithControlBar && controlsContainer.classList.add('showControls');
+  !opt.autoHideControlBar && controlsContainer.classList.add('hideControls');
 
   const seekBarTime = craddel(
     { parent: controlsContainer },
