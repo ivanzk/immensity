@@ -14,10 +14,8 @@ export default (video, opt = {}) => {
     closeModalMouseKey: 'mousedown1',
     controlBarVisibilityDuration: 2000,
     cursorVisibilityDuration: 2000,
-    // excludeKeyboardEventTargetElements: true,
     keyboardActionMap: true,
-    // keyboardEventTargetElements: ['INPUT'],
-    keyboardEventTargetElements: ['#videoOverlay'],
+    keyboardEventTargetElements: ['#iyVideoOverlay'],
     mergeKeyboardActionMapWithDefault: true,
     mergeMouseActionMapWithDefault: true,
     mouseActionMap: true,
@@ -45,7 +43,11 @@ export default (video, opt = {}) => {
   }
 
   if (opt.view === false) {
-    document.body.setAttribute('tabindex', 1);
+    opt = {
+      ...opt,
+      excludeKeyboardEventTargetElements: true,
+      keyboardEventTargetElements: ['INPUT']
+    };
   }
 
   opt.clean && cleanDocument();
