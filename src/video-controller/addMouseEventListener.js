@@ -19,7 +19,7 @@ export default (videoController, opt) => {
     'mousedown0+g0201': () => getVideoshot(video, opt.videoshotOpt),
 
     // Center
-    'click+g3600': () =>
+    'mousedown0+g3600': () =>
       hasFullScreen()
         ? document.webkitExitFullscreen()
         : video.parentElement.webkitRequestFullscreen(),
@@ -48,7 +48,7 @@ export default (videoController, opt) => {
   };
 
   if (modal) {
-    defaultMouseActionMap['click+g7901'] = modal.closeModal;
+    defaultMouseActionMap['mousedown0+g7901'] = modal.closeModal;
     defaultMouseActionMap[closeModalMouseKey] = modal.closeModal;
   }
 
