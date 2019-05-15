@@ -8,6 +8,7 @@ export default (videoController, opt) => {
 
   const defaultMouseActionMap = {
     // Full
+    click: () => {},
     mousedown1: () => getVideoshot(video, opt.videoshotOpt),
     mouseup2: videoController.toggleControls,
 
@@ -61,7 +62,7 @@ export default (videoController, opt) => {
   }
 
   if (opt.view) {
-    const overlay = document.querySelector('#videoOverlay');
+    const overlay = document.querySelector('#iyVideoOverlay');
     overlay.addEventListener(
       'click',
       handleMouseEvent({ click: () => overlay.focus() })
@@ -71,10 +72,14 @@ export default (videoController, opt) => {
     overlay.addEventListener('wheel', handleMouseEvent(mouseActionMap));
     overlay.addEventListener('contextmenu', handleContextMenu);
   } else {
-    video.addEventListener('click', handleMouseEvent(mouseActionMap));
-    video.addEventListener('mousedown', handleMouseEvent(mouseActionMap));
-    video.addEventListener('mouseup', handleMouseEvent(mouseActionMap));
-    video.addEventListener('wheel', handleMouseEvent(mouseActionMap));
+    const opt = {
+      stopPropagation: true,
+      stopImmediatePropagation: true
+    };
+    video.addEventListener('click', handleMouseEvent(mouseActionMap, opt));
+    video.addEventListener('mousedown', handleMouseEvent(mouseActionMap, opt));
+    video.addEventListener('mouseup', handleMouseEvent(mouseActionMap, opt));
+    video.addEventListener('wheel', handleMouseEvent(mouseActionMap, opt));
   }
 };
 
