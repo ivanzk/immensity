@@ -1,7 +1,7 @@
 let timeoutId;
 
 export default (e, controlBarContainer, opt = {}) => {
-  if (e.target.id === 'videoOverlay') {
+  if (e.target.id === 'iyVideoOverlay') {
     controlBarContainer.classList.remove('hideControls');
     autoHide();
   } else {

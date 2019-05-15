@@ -25,7 +25,7 @@ export default (videoController, opt) => {
 
   const videoOverlay = craddel(
     { parent: videoContainer },
-    { id: 'videoOverlay', tabIndex: 1 }
+    { id: 'iyVideoOverlay', tabIndex: 1 }
   );
 
   videoOverlay.focus();
