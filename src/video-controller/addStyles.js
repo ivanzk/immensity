@@ -76,6 +76,10 @@ export default function() {
         display: none
       }
 
+      #iyVideoControllerRoot .showControls {
+        display: flex !important;
+      }
+
       #iyVideoControllerRoot .controlBars {
         border-radius: 8px;
         height: 8px;
