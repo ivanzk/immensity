@@ -8,13 +8,15 @@ import removeAttributes from '../cleaner/removeAttributes';
 
 export default (video, opt = {}) => {
   const defaultOpt = {
-    autoHideControls: true,
+    autoHideControlBar: true,
     autoHideCursor: true,
     clean: true,
     closeModalMouseKey: null,
-    controlsVisibilityDuration: 2000,
+    controlBarVisibilityDuration: 2000,
     cursorVisibilityDuration: 2000,
+    excludeKeyboardEventTargetElements: true,
     keyboardActionMap: true,
+    keyboardEventTargetElements: ['INPUT'],
     mergeKeyboardActionMapWithDefault: false,
     mergeMouseActionMapWithDefault: false,
     mouseActionMap: true,

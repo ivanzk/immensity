@@ -3,18 +3,17 @@ import craddel from '../craddel';
 import handleVideoEvent from './handleVideoEvent';
 import throttle from '../throttle';
 import { controlCursorVisibility } from '../cursor';
-import controlControlsContainerVisibility from './controlControlsContainerVisibility';
+import controlControlBarContainerVisibility from './controlControlBarContainerVisibility';
 
 export default (videoController, opt) => {
   const { video } = videoController;
   const { modal, startInFullScreen, startWithControlBar } = opt;
-  const root = opt.root || document.body;
 
   addStyles();
 
   const videoContainer = craddel(
     {
-      parent: modal ? modal.modal : root,
+      parent: modal ? modal.modal : document.body,
       child: video,
       type: 'prepend'
     },
@@ -137,14 +136,14 @@ export default (videoController, opt) => {
   }
 
   function onVideoContainerMouseMove(e) {
-    const { controlsVisibilityDuration, cursorVisibilityDuration } = opt;
+    const { controlBarVisibilityDuration, cursorVisibilityDuration } = opt;
     opt.autoHideCursor &&
       controlCursorVisibility(videoContainer, {
         cursorVisibilityDuration
       });
-    opt.autoHideControls &&
-      controlControlsContainerVisibility(e, controlsContainer, {
-        controlsVisibilityDuration
+    opt.autoHideControlBar &&
+      controlControlBarContainerVisibility(e, controlsContainer, {
+        controlBarVisibilityDuration
       });
   }
 
