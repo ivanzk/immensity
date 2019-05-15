@@ -1,16 +1,16 @@
 export default (data, opt = {}) => {
   const defaultOpt = {
     name: document.title,
-    timestamp: ` ${Date.now()}`,
-    type: 'application/json'
+    space: 0,
+    timestamp: ` ${Date.now()}`
   };
   opt = { ...defaultOpt, ...opt };
 
   let { name } = opt;
   name = (name && name + opt.timestamp) || Date.now();
 
-  data = JSON.stringify(data);
-  const blob = new Blob([data], { type: opt.type });
+  data = JSON.stringify(data, null, opt.space);
+  const blob = new Blob([data], { type: 'application/json' });
 
   const a = document.createElement('a');
   a.download = name;
