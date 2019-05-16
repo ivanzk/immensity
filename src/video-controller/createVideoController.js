@@ -30,13 +30,21 @@ export default (video, opt = {}) => {
 
   const muteOn = () => (video.muted = true);
 
-  const increasePlaybackRate = (playbackRateChange = opt.playbackRateChange) =>
-    (video.playbackRate += playbackRateChange);
+  const increasePlaybackRate = (
+    playbackRateChange = opt.playbackRateChange
+  ) => {
+    const playbackRate = video.playbackRate + playbackRateChange;
+    video.playbackRate = playbackRate <= 5 ? playbackRate : 5;
+  };
 
   const normalizePlaybackRate = () => (video.playbackRate = 1);
 
-  const decreasePlaybackRate = (playbackRateChange = opt.playbackRateChange) =>
-    (video.playbackRate -= playbackRateChange);
+  const decreasePlaybackRate = (
+    playbackRateChange = opt.playbackRateChange
+  ) => {
+    const playbackRate = video.playbackRate - playbackRateChange;
+    video.playbackRate = playbackRate >= 0.1 ? playbackRate : 0.1;
+  };
 
   const seekBackward = (timeChange = defaultTimeChange, opt = {}) => {
     const defaultOpt = {
@@ -78,23 +86,19 @@ export default (video, opt = {}) => {
 
   const toggleControls = () => {
     if (opt.view) {
-      document
-        .querySelector('.controlsContainer')
-        .classList.toggle('hideControls');
+      const controls = document.querySelector('.controlsContainer');
+
+      if (controls.classList.contains('showControls')) {
+        controls.classList.remove('showControls');
+        controls.classList.add('hideControls');
+      } else {
+        controls.classList.add('showControls');
+        controls.classList.remove('hideControls');
+      }
     } else {
       video.hasAttribute('controls')
         ? video.removeAttribute('controls')
         : video.setAttribute('controls', true);
-    }
-  };
-
-  const showControls = () => {
-    if (opt.view) {
-      document
-        .querySelector('.controlsContainer')
-        .classList.remove('hideControls');
-    } else {
-      video.setAttribute('controls', true);
     }
   };
 
@@ -125,7 +129,6 @@ export default (video, opt = {}) => {
     decreasePlaybackRate,
     seekBackward,
     seekForward,
-    showControls,
     toggleControls,
     toggleMute,
     togglePlay,

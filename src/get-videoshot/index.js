@@ -3,7 +3,6 @@ import crel from '../crel';
 export default (video, opt = {}) => {
   const defaultOpt = {
     download: true,
-    ext: '.jpg',
     name: document.title,
     quality: 0.95,
     timestamp: ` ${Date.now()}`,
@@ -11,8 +10,8 @@ export default (video, opt = {}) => {
   };
   opt = { ...defaultOpt, ...opt };
 
-  let { name, timestamp, type, ext, quality, download } = opt;
-  name = ((name && name + timestamp) || Date.now()) + ext;
+  let { name, timestamp, type, quality, download } = opt;
+  name = (name && name + timestamp) || Date.now();
 
   const canvas = crel('canvas', {
     width: video.videoWidth,

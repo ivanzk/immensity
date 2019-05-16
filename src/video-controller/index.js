@@ -8,18 +8,24 @@ import removeAttributes from '../cleaner/removeAttributes';
 
 export default (video, opt = {}) => {
   const defaultOpt = {
-    clean: true,
-    closeModalMouseKey: null,
+    autoHideControlBar: true,
+    autoHideCursor: true,
+    clean: false,
+    closeModalMouseKey: 'mousedown1',
+    controlBarVisibilityDuration: 2000,
+    cursorVisibilityDuration: 2000,
     keyboardActionMap: true,
-    mergeMouseActionMapWithDefault: false,
+    keyboardEventTargetElements: ['#iyVideoOverlay'],
+    mergeKeyboardActionMapWithDefault: true,
+    mergeMouseActionMapWithDefault: true,
     mouseActionMap: true,
     playbackRateChange: 0.1,
     startInFullScreen: true,
-    startWithControlBar: true,
-    timeChange: 2.5,
+    startWithControlBar: false,
+    timeChange: 1,
     videoshotOpt: {},
-    view: true,
-    volumeChange: 0.025
+    view: 'modal',
+    volumeChange: 0.01
   };
   opt = { ...defaultOpt, ...opt };
 
@@ -34,6 +40,14 @@ export default (video, opt = {}) => {
     );
     opt.modal = createModal(video, opt);
     opt.clean = false;
+  }
+
+  if (opt.view === false) {
+    opt = {
+      ...opt,
+      excludeKeyboardEventTargetElements: true,
+      keyboardEventTargetElements: ['INPUT']
+    };
   }
 
   opt.clean && cleanDocument();

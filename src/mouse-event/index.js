@@ -1,7 +1,15 @@
 let lastKey = '';
 let rightButtonMod = false;
 
-export default (actionMap = {}) => e => {
+export default (actionMap = {}, opt = {}) => e => {
+  const defaultOpt = {
+    isLogging: false,
+    preventDefault: true,
+    stopPropagation: false,
+    stopImmediatePropagation: false
+  };
+  opt = { ...defaultOpt, ...opt };
+
   const { button, buttons, detail, offsetX, offsetY, target, type } = e;
 
   const specialKey = `${e.metaKey || e.ctrlKey ? 'control+' : ''}${
@@ -44,6 +52,8 @@ export default (actionMap = {}) => e => {
   const x = Math.floor((offsetX / target.offsetWidth) * 10);
   const y = Math.floor((offsetY / target.offsetHeight) * 10);
 
+  opt.isLogging && console.log({ event: e, key: `${key}+g${x}x${y}y` });
+
   Object.keys(actionMap).forEach(actionMapKey => {
     let grid = actionMapKey.match(/g(\d{4})/);
     if (grid) {
@@ -51,25 +61,23 @@ export default (actionMap = {}) => e => {
       if (x >= grid[1] && x <= grid[2] && y >= grid[3] && y <= grid[4]) {
         let keyWithGrid = key + `+${grid}`;
         if (actionMapKey !== keyWithGrid) return;
-        const action = actionMap[keyWithGrid];
-        if (typeof action === 'function') {
-          e.preventDefault();
-          e.stopPropagation();
-          e.stopImmediatePropagation();
-          action(e);
-        }
+
+        takeAction(e, actionMap[keyWithGrid], opt);
       }
     } else {
-      const action = key === actionMapKey ? actionMap[actionMapKey] : null;
-      if (typeof action === 'function') {
-        e.preventDefault();
-        e.stopPropagation();
-        e.stopImmediatePropagation();
-        action(e);
-      }
+      takeAction(e, key === actionMapKey ? actionMap[actionMapKey] : null, opt);
     }
   });
 
   lastKey = key;
-  return key;
+  return `${key}+g${x}x${y}y`;
 };
+
+function takeAction(event, action, opt) {
+  if (typeof action === 'function') {
+    opt.preventDefault && event.preventDefault();
+    opt.stopPropagation && event.stopPropagation();
+    opt.stopImmediatePropagation && event.stopImmediatePropagation();
+    action();
+  }
+}

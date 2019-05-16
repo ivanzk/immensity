@@ -13,13 +13,18 @@ export default (videoController, opt) => {
     mouseup2: videoController.toggleControls,
 
     // Left
-    'wheeldown+g0208': () => videoController.decreasePlaybackRate(0.1),
-    'wheelup+g0208': () => videoController.increasePlaybackRate(0.1),
-    'mousedown0+g0228': () => videoController.normalizePlaybackRate(),
+    'wheeldown+g0208': videoController.decreasePlaybackRate,
+    'wheelup+g0208': videoController.increasePlaybackRate,
+    'alt+wheeldown+g0208': () => videoController.decreasePlaybackRate(0.05),
+    'alt+wheelup+g0208': () => videoController.increasePlaybackRate(0.05),
+    'shift+alt+wheeldown+g0208': () =>
+      videoController.decreasePlaybackRate(0.5),
+    'shift+alt+wheelup+g0208': () => videoController.increasePlaybackRate(0.5),
+    'mousedown0+g0228': videoController.normalizePlaybackRate,
     'mousedown0+g0201': () => getVideoshot(video, opt.videoshotOpt),
 
     // Center
-    'click+g3600': () =>
+    'mousedown0+g3600': () =>
       hasFullScreen()
         ? document.webkitExitFullscreen()
         : video.parentElement.webkitRequestFullscreen(),
@@ -38,17 +43,27 @@ export default (videoController, opt) => {
 
     'wheeldown+g3658': () => videoController.seekBackward(2.5),
     'wheelup+g3658': () => videoController.seekForward(2.5),
+    'alt+wheeldown+g3658': () => videoController.seekBackward(0.1),
+    'alt+wheelup+g3658': () => videoController.seekForward(0.1),
+    'shift+alt+wheeldown+g3658': () =>
+      videoController.seekBackward(video.duration / 10),
+    'shift+alt+wheelup+g3658': () =>
+      videoController.seekForward(video.duration / 10),
 
     // Right
     'wheeldown+g7904': () => videoController.volumeDown(0.05),
     'wheelup+g7904': () => videoController.volumeUp(0.05),
     'wheeldown+g7958': () => videoController.volumeDown(0.01),
     'wheelup+g7958': () => videoController.volumeUp(0.01),
+    'alt+wheeldown+g7904': () => videoController.volumeDown(0.05 * 10),
+    'alt+wheelup+g7904': () => videoController.volumeUp(0.05 * 10),
+    'alt+wheeldown+g7958': () => videoController.volumeDown(0.01 * 10),
+    'alt+wheelup+g7958': () => videoController.volumeUp(0.01 * 10),
     'mousedown0+g7928': videoController.toggleMute
   };
 
   if (modal) {
-    defaultMouseActionMap['click+g7901'] = modal.closeModal;
+    defaultMouseActionMap['mousedown0+g7901'] = modal.closeModal;
     defaultMouseActionMap[closeModalMouseKey] = modal.closeModal;
   }
 
@@ -62,17 +77,24 @@ export default (videoController, opt) => {
   }
 
   if (opt.view) {
-    const overlay = document.querySelector('#videoOverlay');
-    overlay.addEventListener('click', handleMouseEvent(mouseActionMap));
+    const overlay = document.querySelector('#iyVideoOverlay');
+    overlay.addEventListener(
+      'click',
+      handleMouseEvent({ click: () => overlay.focus() })
+    );
     overlay.addEventListener('mousedown', handleMouseEvent(mouseActionMap));
     overlay.addEventListener('mouseup', handleMouseEvent(mouseActionMap));
     overlay.addEventListener('wheel', handleMouseEvent(mouseActionMap));
     overlay.addEventListener('contextmenu', handleContextMenu);
   } else {
-    video.addEventListener('click', handleMouseEvent(mouseActionMap));
-    video.addEventListener('mousedown', handleMouseEvent(mouseActionMap));
-    video.addEventListener('mouseup', handleMouseEvent(mouseActionMap));
-    video.addEventListener('wheel', handleMouseEvent(mouseActionMap));
+    const opt = {
+      stopPropagation: true,
+      stopImmediatePropagation: true
+    };
+    video.addEventListener('click', handleMouseEvent(mouseActionMap, opt));
+    video.addEventListener('mousedown', handleMouseEvent(mouseActionMap, opt));
+    video.addEventListener('mouseup', handleMouseEvent(mouseActionMap, opt));
+    video.addEventListener('wheel', handleMouseEvent(mouseActionMap, opt));
   }
 };
 

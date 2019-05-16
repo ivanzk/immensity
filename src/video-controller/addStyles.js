@@ -46,10 +46,14 @@ export default function() {
         z-index: 16777271;
       }
 
-      #iyVideoControllerRoot #videoOverlay {
+      #iyVideoControllerRoot #iyVideoOverlay {
         position: absolute;
         width: 100vw;
         height: 100vh;
+      }
+      #iyVideoControllerRoot #iyVideoOverlay:focus {
+        border: none;
+        outline: none;
       }
 
       #iyVideoControllerRoot video {
@@ -69,10 +73,15 @@ export default function() {
         bottom: 0px;
         height: 50px;
         width: 100%;
+        cursor: default;
       }
 
       #iyVideoControllerRoot .hideControls {
         display: none
+      }
+
+      #iyVideoControllerRoot .showControls {
+        display: flex !important;
       }
 
       #iyVideoControllerRoot .controlBars {

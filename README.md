@@ -1,4 +1,4 @@
-# immensity
+# Immensity
 
 [![npm](https://img.shields.io/npm/v/immensity.svg)](https://www.npmjs.com/package/immensity)
 
@@ -16,11 +16,10 @@ npm install immensity
 import * as iy from 'immensity';
 ```
 
-Or
-
 ```js
 import {
   cleanDocument,
+  controlCursorVisibility,
   convertSecondsToTimeUnits,
   craddel,
   createVideoController,
@@ -32,21 +31,26 @@ import {
   handleMouseEvent,
   openInIframe,
   photoshowSimple,
-  removeAttributes
+  removeAttributes,
+  saveAsJSON,
+  throttle
 } from 'immensity';
 ```
 
-### Example - getVideoshot
+### Examples
+
+#### getVideoshot
 
 Capture video screenshot of HTML5 video at current time
 
 ```js
+import { getVideoshot } from 'immensity';
+
 const video = document.querySelector('video');
 
 // optional object, defaults to:
 const options = {
   download: true,
-  ext: '.jpg',
   name: document.title,
   quality: 0.95,
   timestamp: ` ${Date.now()}`,
@@ -54,4 +58,23 @@ const options = {
 };
 
 getVideoshot(video, options);
+```
+
+#### saveAsJSON
+
+Save javascript object as JSON file
+
+```js
+import { saveAsJSON } from 'immensity';
+
+const data = { example: 'Example' };
+
+// optional object, defaults to:
+const options = {
+  name: document.title,
+  space: 0,
+  timestamp: ` ${Date.now()}`
+};
+
+saveAsJSON(data, options);
 ```

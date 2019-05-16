@@ -1,16 +1,18 @@
 import addStyles from './addStyles';
 import craddel from '../craddel';
 import handleVideoEvent from './handleVideoEvent';
+import throttle from '../throttle';
+import { controlCursorVisibility } from '../cursor';
+import controlControlBarContainerVisibility from './controlControlBarContainerVisibility';
 
 export default (videoController, opt) => {
   const { video } = videoController;
-  const { modal, startInFullScreen, startWithControlBar } = opt;
 
   addStyles();
 
   const videoContainer = craddel(
     {
-      parent: modal ? modal.modal : null,
+      parent: opt.modal ? opt.modal.modal : document.body,
       child: video,
       type: 'prepend'
     },
@@ -18,20 +20,23 @@ export default (videoController, opt) => {
   );
 
   if (video.parentElement.webkitRequestFullscreen) {
-    startInFullScreen && video.parentElement.webkitRequestFullscreen();
+    opt.startInFullScreen && video.parentElement.webkitRequestFullscreen();
   }
 
   const videoOverlay = craddel(
     { parent: videoContainer },
-    { id: 'videoOverlay' }
+    { id: 'iyVideoOverlay', tabIndex: 1 }
   );
+
+  videoOverlay.focus();
 
   const controlsContainer = craddel(
     { parent: videoContainer },
     { className: 'controlsContainer' }
   );
 
-  !startWithControlBar && controlsContainer.classList.add('hideControls');
+  opt.startWithControlBar && controlsContainer.classList.add('showControls');
+  !opt.autoHideControlBar && controlsContainer.classList.add('hideControls');
 
   const seekBarTime = craddel(
     { parent: controlsContainer },
@@ -69,6 +74,11 @@ export default (videoController, opt) => {
   seekBar.addEventListener('mouseout', onBarMouseOut);
   seekBar.addEventListener('mousemove', onSeekBarMouseMove);
 
+  videoContainer.addEventListener(
+    'mousemove',
+    throttle(100, onVideoContainerMouseMove)
+  );
+
   function onVolumeBarClick(e) {
     const barValue = e.offsetX / e.target.offsetWidth;
     videoController.muteOff();
@@ -78,9 +88,7 @@ export default (videoController, opt) => {
   function onVolumeBarWheel(e) {
     e.preventDefault();
     videoController.muteOff();
-    e.deltaY < 0
-      ? videoController.volumeUp(0.02)
-      : videoController.volumeDown(0.02);
+    e.deltaY < 0 ? videoController.volumeUp() : videoController.volumeDown();
   }
 
   function onSeekBarClick(e) {
@@ -94,8 +102,8 @@ export default (videoController, opt) => {
     e.stopPropagation();
     e.preventDefault();
     e.deltaY < 0
-      ? videoController.seekForward(1)
-      : videoController.seekBackward(1);
+      ? videoController.seekForward()
+      : videoController.seekBackward();
   }
 
   let barMouseDown = false;
@@ -127,6 +135,18 @@ export default (videoController, opt) => {
     const barValue = Math.ceil((e.offsetX / e.target.offsetWidth) * 100) / 100;
     videoController.muteOff();
     video.volume = barValue;
+  }
+
+  function onVideoContainerMouseMove(e) {
+    const { controlBarVisibilityDuration, cursorVisibilityDuration } = opt;
+    opt.autoHideCursor &&
+      controlCursorVisibility(videoContainer, {
+        cursorVisibilityDuration
+      });
+    opt.autoHideControlBar &&
+      controlControlBarContainerVisibility(e, controlsContainer, {
+        controlBarVisibilityDuration
+      });
   }
 
   handleVideoEvent(videoController, {
