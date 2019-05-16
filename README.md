@@ -1,4 +1,4 @@
-# immensity.js
+# Immensity
 
 [![npm](https://img.shields.io/npm/v/immensity.svg)](https://www.npmjs.com/package/immensity)
 
@@ -37,9 +37,9 @@ import {
 } from 'immensity';
 ```
 
-## Examples
+### Examples
 
-### getVideoshot
+#### getVideoshot
 
 Capture video screenshot of HTML5 video at current time
 
@@ -60,7 +60,7 @@ const options = {
 getVideoshot(video, options);
 ```
 
-### saveAsJSON
+#### saveAsJSON
 
 Save javascript object as JSON file
 
