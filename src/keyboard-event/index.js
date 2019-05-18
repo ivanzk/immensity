@@ -46,21 +46,21 @@ function getKeyValue(event, eventPropertyToGetKeyValue) {
   // Keyboard​Event.key
   // Example: control+shift+alt+a
   if (eventPropertyToGetKeyValue === 'key') {
-    return event.key.match(/Control|Shift|Alt/)
+    return event.key.match(/Control|Shift|Alt|Meta/)
       ? event.key.toLowerCase()
-      : `${event.ctrlKey ? 'control+' : ''}${event.shiftKey ? 'shift+' : ''}${
-          event.altKey ? 'alt+' : ''
-        }${event.key.toLowerCase()}`;
+      : `${event.ctrlKey || event.metaKey ? 'control+' : ''}${
+          event.shiftKey ? 'shift+' : ''
+        }${event.altKey ? 'alt+' : ''}${event.key.toLowerCase()}`;
   }
 
   // Keyboard​Event.code
   // Example: Control+Shift+Alt+KeyA
   if (eventPropertyToGetKeyValue === 'code') {
-    return event.code.match(/Control|Shift|Alt/)
+    return event.code.match(/Control|Shift|Alt|Meta/)
       ? event.code
-      : `${event.ctrlKey ? 'Control+' : ''}${event.shiftKey ? 'Shift+' : ''}${
-          event.altKey ? 'Alt+' : ''
-        }${event.code}`;
+      : `${event.ctrlKey || event.metaKey ? 'Control+' : ''}${
+          event.shiftKey ? 'Shift+' : ''
+        }${event.altKey ? 'Alt+' : ''}${event.code}`;
   }
 }
 

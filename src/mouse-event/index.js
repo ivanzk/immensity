@@ -1,6 +1,3 @@
-let lastKey = '';
-let rightButtonMod = false;
-
 export default (actionMap = {}, opt = {}) => e => {
   const defaultOpt = {
     isLogging: false,
@@ -12,16 +9,16 @@ export default (actionMap = {}, opt = {}) => e => {
 
   const { button, buttons, detail, offsetX, offsetY, target, type } = e;
 
-  const specialKey = `${e.metaKey || e.ctrlKey ? 'control+' : ''}${
+  const specialKey = `${e.ctrlKey || e.metaKey ? 'control+' : ''}${
     e.shiftKey ? 'shift+' : ''
   }${e.altKey ? 'alt+' : ''}`;
 
-  if (type === 'mouseup' && button === 2) rightButtonMod = false;
+  let key = `${specialKey}${type}`;
 
   // MouseDown and MouseUp
-  let key = `${specialKey}${type}${button}${detail > 1 ? '+d' + detail : ''}${
-    rightButtonMod ? '+rbm' : ''
-  }`;
+  if (type == 'mousedown' || type === 'mouseup') {
+    key = `${specialKey}${type}${button}${detail > 1 ? '+d' + detail : ''}`;
+  }
 
   // Click
   if (type == 'click') {
@@ -41,16 +38,10 @@ export default (actionMap = {}, opt = {}) => e => {
     }`;
   }
 
-  if (type === 'mousedown' && button === 2) rightButtonMod = true;
-
-  // Cancel MouseUp after MouseDown+Wheel
-  if (lastKey.includes('wheel') && key.includes('mouseup')) {
-    lastKey = '';
-    return;
-  }
-
-  const x = Math.floor((offsetX / target.offsetWidth) * 10);
-  const y = Math.floor((offsetY / target.offsetHeight) * 10);
+  let x = Math.floor((offsetX / target.offsetWidth) * 10);
+  x = x < 0 ? 0 : x;
+  let y = Math.floor((offsetY / target.offsetHeight) * 10);
+  y = y < 0 ? 0 : y;
 
   opt.isLogging && console.log({ event: e, key: `${key}+g${x}x${y}y` });
 
@@ -69,7 +60,6 @@ export default (actionMap = {}, opt = {}) => e => {
     }
   });
 
-  lastKey = key;
   return `${key}+g${x}x${y}y`;
 };
 
