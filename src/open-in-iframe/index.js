@@ -9,7 +9,11 @@ export default (url, callbackFn) => {
 
   return new Promise(resolve => {
     iframe.onload = () => {
-      resolve(callbackFn(iframe.contentDocument));
+      resolve(
+        callbackFn(iframe.contentDocument, {
+          contentWindow: iframe.contentWindow
+        })
+      );
       iframe.remove();
     };
   });
