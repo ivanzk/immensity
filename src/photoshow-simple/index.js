@@ -18,7 +18,10 @@ export default (urls, opt = {}) => {
     { tag: 'style', parent: document.head },
     {
       innerHTML: /* css */ `
-        body {
+        html, body {
+          background-color: #111;
+          padding: 0px;
+          margin: 0px;
         }
         #iyMediaContainer {
           background-color: #111;
