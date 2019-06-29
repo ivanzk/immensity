@@ -1,6 +1,6 @@
 export default (actionMap = {}, opt = {}) => e => {
   const defaultOpt = {
-    ignoreMultiClick: false,
+    acceptDetail: true,
     isLogging: false,
     preventDefault: true,
     stopPropagation: false,
@@ -19,7 +19,7 @@ export default (actionMap = {}, opt = {}) => e => {
   // MouseDown and MouseUp
   if (type == 'mousedown' || type === 'mouseup') {
     key = `${specialKey}${type}${button}${
-      detail > 1 && !opt.ignoreMultiClick ? '+d' + detail : ''
+      opt.acceptDetail && detail > 1 ? '+d' + detail : ''
     }`;
   }
 
